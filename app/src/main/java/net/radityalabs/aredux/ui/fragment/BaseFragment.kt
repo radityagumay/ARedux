@@ -31,4 +31,11 @@ abstract class BaseFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
     }
+
+    protected fun addChildFragment(containerId: Int, fragment: Fragment, isAddToBackStack: Boolean = false) {
+        childFragmentManager.beginTransaction()
+                .add(containerId, fragment, fragment.tag)
+                .addToBackStack(if (isAddToBackStack) fragment.tag else null)
+                .commit()
+    }
 }

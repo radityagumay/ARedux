@@ -4,9 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <!-- toolbar -->
+    <FrameLayout
+        android:id="@+id/chat_toolbar_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hello World" />
+        android:layout_height="?attr/actionBarSize" />
 
+    <!-- body -->
+    <FrameLayout
+        android:id="@+id/chat_body_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
