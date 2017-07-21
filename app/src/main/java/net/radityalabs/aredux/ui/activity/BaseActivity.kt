@@ -3,7 +3,7 @@ package net.radityalabs.aredux.ui.activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import net.radityalabs.aredux.StateListener
+import net.radityalabs.aredux.redux.base.StateListener
 
 /**
  * Created by radityagumay on 7/20/17.

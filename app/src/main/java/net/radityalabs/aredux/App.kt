@@ -2,6 +2,7 @@ package net.radityalabs.aredux
 
 import android.app.Application
 import android.content.Context
+import net.radityalabs.aredux.redux.base.StateListener
 
 class App : Application() {
 

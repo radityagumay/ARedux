@@ -2,7 +2,7 @@ package net.radityalabs.aredux.ui.activity
 
 import android.os.Bundle
 import net.radityalabs.aredux.*
-import net.radityalabs.aredux.ui.fragment.ChatFragment
+import net.radityalabs.aredux.ui.fragment.chat.ChatFragment
 
 class ChatActivity : BaseActivity() {
 
