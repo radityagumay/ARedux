@@ -15,4 +15,9 @@ class ChatActivity : BaseActivity() {
         super.onPostCreate(savedInstanceState)
         addFragment(R.id.container, ChatFragment.newInstance())
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }

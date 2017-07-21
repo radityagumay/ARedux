@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import net.radityalabs.aredux.R
+import net.radityalabs.aredux.extension.addedName
 
 /**
  * Created by radityagumay on 7/21/17.
@@ -33,7 +34,7 @@ class ChatFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         nested.forEach {
             val (name, layout) = it
-            addChildFragment(layout, (Class.forName("net.radityalabs.aredux.ui.fragment." + name).newInstance() as Fragment))
+            addChildFragment(layout, (Class.forName(addedName(name)).newInstance() as Fragment))
         }
     }
 
