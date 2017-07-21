@@ -10,7 +10,7 @@ import net.radityalabs.aredux.R
  * Created by radityagumay on 7/21/17.
  */
 
-class ChatToolbarFragment : BaseFragment(), IChildChatFragment {
+class ChatToolbarFragment : BaseFragment() {
 
     companion object {
         val TAG = ChatToolbarFragment::class.java.simpleName
@@ -36,9 +36,5 @@ class ChatToolbarFragment : BaseFragment(), IChildChatFragment {
 
     override fun onDestroy() {
         super.onDestroy()
-    }
-
-    override fun add(layoutId: Int) {
-        addChildFragment(layoutId, ChatToolbarFragment.newInstance())
     }
 }
