@@ -15,7 +15,7 @@
         android:layout_height="35dp"
         android:layout_margin="5dp"
         android:layout_weight="1"
-        android:background="?attr/selectableItemBackground"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         app:srcCompat="@drawable/ic_add_circle" />
 
@@ -41,7 +41,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            android:background="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             app:srcCompat="@drawable/ic_smile_emoticon" />
     </RelativeLayout>
@@ -51,7 +51,7 @@
         android:layout_height="35dp"
         android:layout_margin="5dp"
         android:layout_weight="1"
-        android:background="?attr/selectableItemBackground"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         app:srcCompat="@drawable/ic_send" />
 </LinearLayout>
