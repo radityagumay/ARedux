@@ -26,7 +26,7 @@ object RestHelper {
 
     private fun buildRetrofit(): Retrofit {
         return Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl("https://www.google.com")
                 .client(buildHttpClient())
                 .addConverterFactory(GsonConverterFactory.create(buildGson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

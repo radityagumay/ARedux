@@ -11,9 +11,10 @@ class ChatBodyModule : Module() {
 
     override fun load() {
         val store: ChatBodyStore = store()
+        val service: RestService = RestHelper.restService()
 
         provide(store, ChatBodyStore::class.java)
-        provide(actionCreator(RestHelper.restService(), store), ChatBodyActionCreator::class.java)
+        provide(actionCreator(service, store), ChatBodyActionCreator::class.java)
     }
 
     private fun store(): ChatBodyStore {
