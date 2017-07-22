@@ -2,7 +2,6 @@ package net.radityalabs.aredux.ui.fragment.chat
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,9 +45,7 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Injector.load(ChatBodyModule::class.java)
-        actionCreator.create(ChatBodyAction.INIT)
-
-        Log.d(TAG, "")
+        actionCreator.submitAction(ChatBodyAction.INIT)
     }
 
     override fun onStart() {

@@ -1,6 +1,5 @@
 package net.radityalabs.aredux.ui.fragment.chat
 
-import android.util.Log
 import net.radityalabs.aredux.data.network.RestService
 import net.radityalabs.aredux.di.Injector
 
@@ -12,7 +11,12 @@ class ChatBodyActionCreator(
         private val service: RestService = Injector.get(RestService::class.java),
         private val store: ChatBodyStore = Injector.get(ChatBodyStore::class.java)) {
 
-    fun create(action: ChatBodyAction) {
-        Log.d("", "")
+    fun submitAction(action: ChatBodyAction) {
+        when (action) {
+            ChatBodyAction.INIT -> store.dispatch(action)
+            ChatBodyAction.SEND_MESSAGE -> {
+
+            }
+        }
     }
 }

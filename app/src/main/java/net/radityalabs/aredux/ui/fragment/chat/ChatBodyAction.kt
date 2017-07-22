@@ -5,4 +5,5 @@ package net.radityalabs.aredux.ui.fragment.chat
  */
 sealed class ChatBodyAction {
     object INIT : ChatBodyAction()
+    object SEND_MESSAGE : ChatBodyAction()
 }
