@@ -1,15 +1,14 @@
 package net.radityalabs.aredux.ui.fragment.chat
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import net.radityalabs.aredux.R
 import net.radityalabs.aredux.ui.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_chat_body.*
+import net.radityalabs.aredux.data.database.table.ChatObject
 import net.radityalabs.aredux.extension.setup
-import net.radityalabs.aredux.redux.store.store.ChatStore
 
 /**
  * Created by radityagumay on 7/21/17.
@@ -21,6 +20,8 @@ class ChatBodyFragment : BaseFragment() {
     }
 
     private lateinit var chatAdapter: ChatAdapter
+
+    private var chatList: MutableList<ChatObject> = mutableListOf()
 
     private val nested = arrayOf<Pair<String, Int>>(
             Pair(ChatBodyFooterFragment.TAG, R.id.chat_toolbar_container),
@@ -49,6 +50,7 @@ class ChatBodyFragment : BaseFragment() {
     }
 
     private fun initView() {
-        chats.setup()
+        chatAdapter = ChatAdapter(chatList)
+        chats.setup(chatAdapter)
     }
 }
