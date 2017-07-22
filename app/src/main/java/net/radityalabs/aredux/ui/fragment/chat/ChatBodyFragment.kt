@@ -1,6 +1,7 @@
 package net.radityalabs.aredux.ui.fragment.chat
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import net.radityalabs.aredux.R
 import net.radityalabs.aredux.ui.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_chat_body.*
 import net.radityalabs.aredux.data.database.table.ChatObject
+import net.radityalabs.aredux.extension.addedName
 import net.radityalabs.aredux.extension.setup
 
 /**
@@ -24,8 +26,8 @@ class ChatBodyFragment : BaseFragment() {
     private var chatList: MutableList<ChatObject> = mutableListOf()
 
     private val nested = arrayOf<Pair<String, Int>>(
-            Pair(ChatBodyFooterFragment.TAG, R.id.chat_toolbar_container),
-            Pair(ChatBodyMediaFragment.TAG, R.id.chat_body_container)
+            Pair(ChatBodyFooterFragment.TAG, R.id.chat_footer_container),
+            Pair(ChatBodyMediaFragment.TAG, R.id.chat_media_container)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,18 +41,18 @@ class ChatBodyFragment : BaseFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
+        initChildFragment()
     }
 
     private fun initView() {
         chatAdapter = ChatAdapter(chatList)
         chats.setup(chatAdapter)
+    }
+
+    private fun initChildFragment() {
+        nested.forEach {
+            val (name, layout) = it
+            addChildFragment(layout, (Class.forName(addedName(name)).newInstance() as Fragment))
+        }
     }
 }
