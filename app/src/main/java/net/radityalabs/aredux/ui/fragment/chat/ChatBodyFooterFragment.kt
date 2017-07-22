@@ -11,16 +11,21 @@ import kotlinx.android.synthetic.main.fragment_chat_body_footer.*
 import kotlinx.android.synthetic.main.view_chat_footer_edittext_icon.view.*
 import net.radityalabs.aredux.R
 import net.radityalabs.aredux.di.Injector
+import net.radityalabs.aredux.extension.empty
 import net.radityalabs.aredux.ui.fragment.BaseFragment
 
 /**
  * Created by radityagumay on 7/21/17.
  */
 
-class ChatBodyFooterFragment : BaseFragment(), TextWatcher, ChatBodyStateListener {
+class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
+        ChatBodyStateListener, View.OnClickListener {
+
     companion object {
         val TAG = ChatBodyFooterFragment::class.java.simpleName
     }
+
+    private var typeMessage: String = empty()
 
     private val store: ChatBodyStore by lazy {
         Injector.get(ChatBodyStore::class.java)
@@ -50,11 +55,15 @@ class ChatBodyFooterFragment : BaseFragment(), TextWatcher, ChatBodyStateListene
     }
 
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        actionCreator.submitAction(ChatBodyAction.SEND_MESSAGE)
+        typeMessage = p0.toString()
     }
 
-    override fun onNewState(state: ChatBodyState) {
-        Log.d(TAG, "onNewState")
+    override fun onStateChanges(state: ChatBodyState) {
+        Log.d(TAG, "onStateChanges")
+    }
+
+    override fun onClick(view: View?) {
+        actionCreator.submitAction(ChatBodyAction.SEND_MESSAGE(MessageObject(ChatMessageType.TEXT, MessageTypeText(typeMessage))))
     }
 
     override fun onStart() {
@@ -68,6 +77,29 @@ class ChatBodyFooterFragment : BaseFragment(), TextWatcher, ChatBodyStateListene
     }
 
     private fun initView() {
-        message.etMessage.addTextChangedListener(this)
+        with(message) {
+            etMessage.addTextChangedListener(this@ChatBodyFooterFragment)
+            ivSend.setOnClickListener(this@ChatBodyFooterFragment)
+        }
     }
 }
+
+data class MessageObject(
+        val messageType: ChatMessageType? = null,
+        val text: MessageTypeText? = null,
+        val image: MessageTypeImage? = null,
+        val video: MessageTypeVideo? = null
+)
+
+data class MessageTypeText(
+        val message: String
+)
+
+data class MessageTypeImage(
+        val imageUrl: String
+)
+
+data class MessageTypeVideo(
+        val videoUrl: String,
+        val videoThumbnailUrl: String
+)

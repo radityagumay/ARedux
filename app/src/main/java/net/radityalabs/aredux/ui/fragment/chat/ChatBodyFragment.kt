@@ -68,8 +68,8 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
         initChildFragment()
     }
 
-    override fun onNewState(state: ChatBodyState) {
-        Log.d(TAG, "onNewState")
+    override fun onStateChanges(state: ChatBodyState) {
+        Log.d(TAG, state.messageObject?.text?.message)
     }
 
     private fun initView() {
@@ -79,9 +79,7 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
 
     private fun setupRecycleView() {
         chats.setup(chatAdapter)
-        chats.loadPrevious {
-
-        }
+        chats.loadPrevious {}
     }
 
     private fun initChildFragment() {

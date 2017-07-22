@@ -17,11 +17,14 @@ class ChatBodyStore(private val transformer: ChatBodyStateTransformer) :
         private set
 
     override fun updateState(action: ChatBodyAction) {
+        state = transformer.transform(state, action)
     }
 
     override fun dispatch(action: ChatBodyAction) {
+        updateState(action)
+
         states.forEach {
-            it.onNewState(state)
+            it.onStateChanges(state)
         }
     }
 
