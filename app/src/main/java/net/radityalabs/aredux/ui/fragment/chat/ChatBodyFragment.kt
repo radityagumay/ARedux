@@ -9,19 +9,31 @@ import net.radityalabs.aredux.R
 import net.radityalabs.aredux.ui.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_chat_body.*
 import net.radityalabs.aredux.data.database.table.ChatObject
+import net.radityalabs.aredux.di.Injector
 import net.radityalabs.aredux.extension.addedName
+import net.radityalabs.aredux.extension.loadPrevious
 import net.radityalabs.aredux.extension.setup
+import net.radityalabs.aredux.redux.state.chat.ChatState
 
 /**
  * Created by radityagumay on 7/21/17.
  */
 
-class ChatBodyFragment : BaseFragment() {
+class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
+
     companion object {
         val TAG = ChatBodyFragment::class.java.simpleName
     }
 
     private lateinit var chatAdapter: ChatAdapter
+
+    private val store: ChatBodyStore by lazy {
+        Injector.get(ChatBodyStore::class.java)
+    }
+
+    private val actionCreator: ChatBodyActionCreator by lazy {
+        Injector.get(ChatBodyActionCreator::class.java)
+    }
 
     private var chatList: MutableList<ChatObject> = mutableListOf()
 
@@ -32,6 +44,18 @@ class ChatBodyFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Injector.load(ChatBodyModule::class.java, true)
+        Injector.load(ChatBodyActionCreator::class.java, true)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        store.register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        store.unregister(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,9 +68,20 @@ class ChatBodyFragment : BaseFragment() {
         initChildFragment()
     }
 
+    override fun onNewState(state: ChatState) {
+
+    }
+
     private fun initView() {
         chatAdapter = ChatAdapter(chatList)
+        setupRecycleView()
+    }
+
+    private fun setupRecycleView() {
         chats.setup(chatAdapter)
+        chats.loadPrevious {
+
+        }
     }
 
     private fun initChildFragment() {

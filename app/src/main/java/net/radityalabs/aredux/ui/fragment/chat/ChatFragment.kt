@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import net.radityalabs.aredux.R
+import net.radityalabs.aredux.di.Injector
 import net.radityalabs.aredux.extension.addedName
 import net.radityalabs.aredux.ui.fragment.BaseFragment
 
@@ -37,13 +38,5 @@ class ChatFragment : BaseFragment() {
             val (name, layout) = it
             addChildFragment(layout, (Class.forName(addedName("chat.".plus(name))).newInstance() as Fragment))
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }

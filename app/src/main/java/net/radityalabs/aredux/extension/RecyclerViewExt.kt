@@ -7,12 +7,19 @@ import net.radityalabs.aredux.data.database.table.ChatObject
 import net.radityalabs.aredux.ui.fragment.chat.ChatMessageType
 import net.radityalabs.aredux.ui.fragment.chat.viewholder.ChatTextViewHolder
 import android.support.v7.widget.LinearLayoutManager
-
-
+import net.radityalabs.aredux.listener.OnLoadPreviousListener
 
 /**
  * Created by radityagumay on 7/21/17.
  */
+
+fun RecyclerView.loadPrevious(action: () -> Unit) {
+    addOnScrollListener(OnLoadPreviousListener(object : OnLoadPreviousListener.Callback {
+        override fun onLoadPrevious() {
+            action.invoke()
+        }
+    }))
+}
 
 fun RecyclerView.setup(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>): RecyclerView {
     return apply {
