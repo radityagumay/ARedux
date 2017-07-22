@@ -1,23 +1,18 @@
 package net.radityalabs.aredux.ui.widget
 
 import android.content.Context
-import android.support.v7.widget.AppCompatEditText
 import android.util.AttributeSet
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import net.radityalabs.aredux.R
+import kotlinx.android.synthetic.main.view_chat_footer_edittext_icon.*
 
 /**
  * Created by radityagumay on 7/22/17.
  */
 
 class ChatEditTextWithIcon : RelativeLayout {
-
-    private lateinit var imageView: ImageView
-    private lateinit var editText: EditText
 
     constructor(context: Context) : super(context) {
         init()

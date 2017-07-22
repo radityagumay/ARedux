@@ -11,10 +11,18 @@ class ChatBodyStore(private val transformer: ChatBodyStateTransformer) :
         Store<ChatBodyStateListener>,
         StoreDispatch<ChatBodyAction, ChatBodyState> {
 
+    private val states: MutableList<ChatBodyStateListener> = mutableListOf()
+
+    var state: ChatBodyState = ChatBodyState()
+        private set
+
     override fun updateState(action: ChatBodyAction) {
     }
 
     override fun dispatch(action: ChatBodyAction) {
+        states.forEach {
+            it.onNewState(state)
+        }
     }
 
     override fun beforeDispatch(action: ChatBodyAction, oldState: ChatBodyState) {
@@ -24,8 +32,10 @@ class ChatBodyStore(private val transformer: ChatBodyStateTransformer) :
     }
 
     override fun register(stateListener: ChatBodyStateListener) {
+        states.add(stateListener)
     }
 
     override fun unregister(stateListener: ChatBodyStateListener) {
+        states.remove(stateListener)
     }
 }

@@ -8,5 +8,5 @@ import net.radityalabs.aredux.redux.state.chat.ChatState
  */
 
 interface ChatBodyStateListener : StateListener {
-    fun onNewState(state: ChatState)
+    fun onNewState(state: ChatBodyState)
 }

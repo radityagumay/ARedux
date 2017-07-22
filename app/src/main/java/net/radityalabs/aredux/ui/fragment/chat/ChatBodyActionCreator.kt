@@ -14,9 +14,7 @@ class ChatBodyActionCreator(
     fun submitAction(action: ChatBodyAction) {
         when (action) {
             ChatBodyAction.INIT -> store.dispatch(action)
-            ChatBodyAction.SEND_MESSAGE -> {
-
-            }
+            ChatBodyAction.SEND_MESSAGE -> store.dispatch(action)
         }
     }
 }

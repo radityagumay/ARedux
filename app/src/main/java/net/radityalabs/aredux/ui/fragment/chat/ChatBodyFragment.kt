@@ -2,6 +2,7 @@ package net.radityalabs.aredux.ui.fragment.chat
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,6 @@ import net.radityalabs.aredux.di.Injector
 import net.radityalabs.aredux.extension.addedName
 import net.radityalabs.aredux.extension.loadPrevious
 import net.radityalabs.aredux.extension.setup
-import net.radityalabs.aredux.redux.state.chat.ChatState
 
 /**
  * Created by radityagumay on 7/21/17.
@@ -68,8 +68,8 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
         initChildFragment()
     }
 
-    override fun onNewState(state: ChatState) {
-
+    override fun onNewState(state: ChatBodyState) {
+        Log.d(TAG, "onNewState")
     }
 
     private fun initView() {
@@ -87,7 +87,7 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
     private fun initChildFragment() {
         nested.forEach {
             val (name, layout) = it
-            addChildFragment(layout, (Class.forName(addedName("chat.".plus(name))).newInstance() as Fragment))
+            addChildFragment(layout, ((Class.forName(addedName("chat.".plus(name))).newInstance() as Fragment)))
         }
     }
 }
