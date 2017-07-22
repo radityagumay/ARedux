@@ -52,7 +52,7 @@ class ChatBodyFragment : BaseFragment() {
     private fun initChildFragment() {
         nested.forEach {
             val (name, layout) = it
-            addChildFragment(layout, (Class.forName(addedName(name)).newInstance() as Fragment))
+            addChildFragment(layout, (Class.forName(addedName("chat.".plus(name))).newInstance() as Fragment))
         }
     }
 }
