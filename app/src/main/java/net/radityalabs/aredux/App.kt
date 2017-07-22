@@ -35,7 +35,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-
-        Injector.load(NetworkModule::class.java, true)
+        Injector.load(NetworkModule::class.java)
     }
 }

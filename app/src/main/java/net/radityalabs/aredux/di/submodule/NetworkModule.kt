@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by radityagumay on 7/22/17.
  */
-object NetworkModule : Module() {
+class NetworkModule : Module() {
     override fun load() {
         provide(restService(), RestService::class.java)
     }

@@ -1,6 +1,5 @@
 package net.radityalabs.aredux.ui.fragment.chat
 
-import net.radityalabs.aredux.data.network.RestHelper
 import net.radityalabs.aredux.data.network.RestService
 import net.radityalabs.aredux.di.Injector
 import net.radityalabs.aredux.di.Module
@@ -8,7 +7,7 @@ import net.radityalabs.aredux.di.Module
 /**
  * Created by radityagumay on 7/22/17.
  */
-object ChatBodyModule : Module() {
+class ChatBodyModule : Module() {
 
     override fun load() {
         val store: ChatBodyStore = store()

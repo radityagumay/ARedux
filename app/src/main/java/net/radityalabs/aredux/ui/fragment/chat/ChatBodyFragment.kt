@@ -45,7 +45,7 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Injector.load(ChatBodyModule::class.java, true)
+        Injector.load(ChatBodyModule::class.java)
         actionCreator.create(ChatBodyAction.INIT)
 
         Log.d(TAG, "")
