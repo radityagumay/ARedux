@@ -3,7 +3,6 @@ package net.radityalabs.aredux.ui.fragment.chat
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,7 @@ import net.radityalabs.aredux.ui.fragment.BaseFragment
  */
 
 class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
-        ChatBodyStateListener, View.OnClickListener {
+        ChatBodyStateListener {
 
     companion object {
         val TAG = ChatBodyFooterFragment::class.java.simpleName
@@ -67,10 +66,6 @@ class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
         }
     }
 
-    override fun onClick(view: View?) {
-        actionCreator.submitAction(ChatBodyAction.SEND_MESSAGE(ChatTask.APPEND_NEW_MESSAGE, MessageObject(ChatMessageType.ME_TEXT, MessageTypeText(typeMessage))))
-    }
-
     override fun onStart() {
         super.onStart()
         store.register(this)
@@ -84,7 +79,22 @@ class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
     private fun initView() {
         with(message) {
             etMessage.addTextChangedListener(this@ChatBodyFooterFragment)
-            ivSend.setOnClickListener(this@ChatBodyFooterFragment)
+            ivSend.setOnClickListener(setOnClickListener(R.id.ivSend))
+            ivEmoticon.setOnClickListener(setOnClickListener(R.id.ivEmoticon))
+        }
+    }
+
+    private fun setOnClickListener(resId: Int): View.OnClickListener {
+        return View.OnClickListener {
+            when (resId) {
+                R.id.ivSend -> {
+                    actionCreator.submitAction(ChatBodyAction.SEND_MESSAGE(ChatTask.APPEND_NEW_MESSAGE, MessageObject(ChatMessageType.ME_TEXT, MessageTypeText(typeMessage))))
+                }
+
+                R.id.ivEmoticon -> {
+                    actionCreator.submitAction(ChatBodyAction.SHOW_EMOTICON(ChatTask.SHOW_EMOTICON))
+                }
+            }
         }
     }
 }

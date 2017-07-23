@@ -39,8 +39,7 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
     private var chatList: MutableList<ChatObject> = mutableListOf()
 
     private val nested = arrayOf<Pair<String, Int>>(
-            Pair(ChatBodyFooterFragment.TAG, R.id.chat_footer_container),
-            Pair(ChatBodyMediaFragment.TAG, R.id.chat_media_container)
+            Pair(ChatBodyFooterFragment.TAG, R.id.chat_footer_container)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +68,8 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
         initChildFragment()
     }
 
+    private var currentMediaFragment: Fragment? = null
+
     override fun onStateChanges(state: ChatBodyState) {
         when (state.chatTask) {
             ChatTask.APPEND_NEW_MESSAGE -> {
@@ -77,6 +78,10 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
                 chats.scrollToPosition(chatAdapter.itemCount - 1)
                 chatAdapter.notifyItemInserted(chatList.size - 1)
                 actionCreator.submitAction(ChatBodyAction.EMPTY_EDIT_TEXT(ChatTask.EMPTY_EDIT_TEXT))
+            }
+            ChatTask.SHOW_EMOTICON -> {
+                currentMediaFragment = ChatBodyEmoticonFragment.newInstance()
+                replaceChildFragment(R.id.chat_media_container, ChatBodyEmoticonFragment.newInstance())
             }
         }
     }

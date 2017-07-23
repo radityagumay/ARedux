@@ -38,4 +38,11 @@ abstract class BaseFragment : Fragment() {
                 .addToBackStack(if (isAddToBackStack) fragment.tag else null)
                 .commit()
     }
+
+    protected fun replaceChildFragment(containerId: Int, fragment: Fragment, isAddToBackStack: Boolean = false) {
+        childFragmentManager.beginTransaction()
+                .replace(containerId, fragment, fragment.tag)
+                .addToBackStack(if (isAddToBackStack) fragment.tag else null)
+                .commit()
+    }
 }
