@@ -14,6 +14,7 @@ import net.radityalabs.aredux.di.Injector
 import net.radityalabs.aredux.extension.addedName
 import net.radityalabs.aredux.extension.loadPrevious
 import net.radityalabs.aredux.extension.setup
+import java.util.*
 
 /**
  * Created by radityagumay on 7/21/17.
@@ -69,7 +70,15 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
     }
 
     override fun onStateChanges(state: ChatBodyState) {
-        Log.d(TAG, state.messageObject?.text?.message)
+        when (state.chatTask) {
+            ChatTask.APPEND_NEW_MESSAGE -> {
+                Log.d(TAG, state.messageObject?.text?.message)
+                chatList.add(ChatObject(Random().nextInt(1000), ChatMessageType.ME_TEXT, state.messageObject?.text?.message))
+                chats.scrollToPosition(chatAdapter.itemCount - 1)
+                chatAdapter.notifyItemInserted(chatList.size - 1)
+                actionCreator.submitAction(ChatBodyAction.EMPTY_EDIT_TEXT(ChatTask.EMPTY_EDIT_TEXT))
+            }
+        }
     }
 
     private fun initView() {

@@ -1,6 +1,6 @@
 package net.radityalabs.aredux.data.database.table
 
-import net.radityalabs.aredux.ui.fragment.chat.ChatMessageType
+import net.radityalabs.aredux.extension.empty
 
 /**
  * Created by radityagumay on 7/20/17.
@@ -8,9 +8,10 @@ import net.radityalabs.aredux.ui.fragment.chat.ChatMessageType
 
 data class ChatObject(
         val chatId: Int,
-        val messageType: ChatMessageType,
-        val message: String,
-        val image: String,
-        val sticker: String,
-        val user: UserObject
+        val messageType: Long,
+        val message: String? = empty(),
+        val image: String? = empty(),
+        val sticker: String? = empty(),
+        val isMe: Boolean = false,
+        val user: UserObject? = null
 )

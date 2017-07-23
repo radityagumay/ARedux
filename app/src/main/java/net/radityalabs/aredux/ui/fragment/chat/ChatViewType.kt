@@ -7,5 +7,10 @@ import net.radityalabs.aredux.data.database.table.ChatObject
  */
 
 fun ChatAdapter.viewType(chat: ChatObject): Int {
-    return 1
+    if (chat.isMe) {
+        if (chat.messageType == ChatMessageType.ME_TEXT) {
+            return ChatMessageType.ME_TEXT.toInt()
+        }
+    }
+    return ChatMessageType.ME_TEXT.toInt()
 }

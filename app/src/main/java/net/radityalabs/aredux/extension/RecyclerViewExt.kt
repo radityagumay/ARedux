@@ -30,9 +30,9 @@ fun RecyclerView.setup(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>): 
 }
 
 
-fun RecyclerView.ViewHolder.transform(itemView: View, chat: ChatObject) {
+fun RecyclerView.ViewHolder.transform(chat: ChatObject) {
     when (chat.messageType) {
-        ChatMessageType.TEXT -> {
+        ChatMessageType.ME_TEXT -> {
             if (this is ChatTextViewHolder) {
                 bind(chat)
             }

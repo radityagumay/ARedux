@@ -59,11 +59,16 @@ class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
     }
 
     override fun onStateChanges(state: ChatBodyState) {
-        Log.d(TAG, "onStateChanges")
+        when (state.chatTask) {
+            ChatTask.EMPTY_EDIT_TEXT -> {
+                typeMessage = empty()
+                message.etMessage.text.clear()
+            }
+        }
     }
 
     override fun onClick(view: View?) {
-        actionCreator.submitAction(ChatBodyAction.SEND_MESSAGE(MessageObject(ChatMessageType.TEXT, MessageTypeText(typeMessage))))
+        actionCreator.submitAction(ChatBodyAction.SEND_MESSAGE(ChatTask.APPEND_NEW_MESSAGE, MessageObject(ChatMessageType.ME_TEXT, MessageTypeText(typeMessage))))
     }
 
     override fun onStart() {
@@ -85,7 +90,7 @@ class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
 }
 
 data class MessageObject(
-        val messageType: ChatMessageType? = null,
+        val messageType: Long,
         val text: MessageTypeText? = null,
         val image: MessageTypeImage? = null,
         val video: MessageTypeVideo? = null

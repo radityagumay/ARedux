@@ -5,5 +5,6 @@ package net.radityalabs.aredux.ui.fragment.chat
  */
 
 data class ChatBodyState(
+        val chatTask: ChatTask? = null,
         val messageObject: MessageObject? = null
 )
