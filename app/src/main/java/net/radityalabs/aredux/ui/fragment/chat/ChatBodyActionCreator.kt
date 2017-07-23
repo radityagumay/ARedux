@@ -14,7 +14,9 @@ class ChatBodyActionCreator(
     fun submitAction(action: ChatBodyAction) {
         when (action) {
             ChatBodyAction.INIT -> store.dispatch(action)
-            ChatBodyAction.SHOW_EMOTICON -> store.dispatch(action)
+            is ChatBodyAction.HIDE_KEYBOARD -> store.dispatch(action)
+            is ChatBodyAction.HIDE_EMOTICON -> store.dispatch(action)
+            is ChatBodyAction.SHOW_EMOTICON -> store.dispatch(action)
             is ChatBodyAction.EMPTY_EDIT_TEXT -> store.dispatch(action)
             is ChatBodyAction.SEND_MESSAGE -> store.dispatch(action)
         }

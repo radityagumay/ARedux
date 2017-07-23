@@ -14,14 +14,12 @@
         android:id="@+id/chat_footer_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_above="@+id/chat_media_container" />
 
     <FrameLayout
         android:id="@+id/chat_media_container"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_below="@+id/chat_footer_container"
-        android:background="@color/colorPrimaryDark"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible" />
 </RelativeLayout>

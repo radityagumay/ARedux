@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import net.radityalabs.aredux.R
+import net.radityalabs.aredux.di.Injector
 import net.radityalabs.aredux.extension.addedName
 import net.radityalabs.aredux.ui.fragment.BaseFragment
 
@@ -13,9 +14,20 @@ import net.radityalabs.aredux.ui.fragment.BaseFragment
  * Created by radityagumay on 7/21/17.
  */
 
-class ChatFragment : BaseFragment() {
+class ChatFragment : BaseFragment(), ChatBodyStateListener {
+
     companion object {
         fun newInstance() = ChatFragment()
+    }
+
+    private var isMediaShown = false
+
+    private val store: ChatBodyStore by lazy {
+        Injector.get(ChatBodyStore::class.java)
+    }
+
+    private val actionCreator: ChatBodyActionCreator by lazy {
+        Injector.get(ChatBodyActionCreator::class.java)
     }
 
     private val nested = arrayOf<Pair<String, Int>>(
@@ -31,11 +43,35 @@ class ChatFragment : BaseFragment() {
         return inflater?.inflate(R.layout.fragment_chat, container, false)
     }
 
+    override fun onStart() {
+        super.onStart()
+        store.register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        store.unregister(this)
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         nested.forEach {
             val (name, layout) = it
             addChildFragment(layout, (Class.forName(addedName("chat.".plus(name))).newInstance() as Fragment))
         }
+    }
+
+    override fun onStateChanges(state: ChatBodyState) {
+        when (state.chatTask) {
+            ChatTask.SHOW_EMOTICON -> {
+                isMediaShown = true
+            }
+        }
+    }
+
+    fun mediaShown() = isMediaShown
+
+    fun hideMedia() {
+        actionCreator.submitAction(ChatBodyAction.HIDE_EMOTICON(ChatTask.HIDE_EMOTICON))
     }
 }

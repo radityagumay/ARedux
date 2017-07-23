@@ -15,6 +15,13 @@ import net.radityalabs.aredux.extension.addedName
 import net.radityalabs.aredux.extension.loadPrevious
 import net.radityalabs.aredux.extension.setup
 import java.util.*
+import android.R.id.edit
+import android.content.Context.INPUT_METHOD_SERVICE
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
+
 
 /**
  * Created by radityagumay on 7/21/17.
@@ -27,6 +34,10 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
     }
 
     private lateinit var chatAdapter: ChatAdapter
+
+    private var currentMediaFragment: Fragment? = null
+
+    private var isKeyboardShown = false
 
     private val store: ChatBodyStore by lazy {
         Injector.get(ChatBodyStore::class.java)
@@ -68,8 +79,6 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
         initChildFragment()
     }
 
-    private var currentMediaFragment: Fragment? = null
-
     override fun onStateChanges(state: ChatBodyState) {
         when (state.chatTask) {
             ChatTask.APPEND_NEW_MESSAGE -> {
@@ -80,8 +89,21 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
                 actionCreator.submitAction(ChatBodyAction.EMPTY_EDIT_TEXT(ChatTask.EMPTY_EDIT_TEXT))
             }
             ChatTask.SHOW_EMOTICON -> {
-                currentMediaFragment = ChatBodyEmoticonFragment.newInstance()
-                replaceChildFragment(R.id.chat_media_container, ChatBodyEmoticonFragment.newInstance())
+                actionCreator.submitAction(ChatBodyAction.HIDE_KEYBOARD(ChatTask.HIDE_KEYBOARD))
+                Observable.timer(100, TimeUnit.MILLISECONDS, Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            chat_media_container.visibility = View.VISIBLE
+                            currentMediaFragment = ChatBodyEmoticonFragment.newInstance()
+                            addChildFragment(R.id.chat_media_container, currentMediaFragment as ChatBodyEmoticonFragment)
+                        }
+
+            }
+            ChatTask.HIDE_EMOTICON -> {
+                currentMediaFragment?.let {
+                    (currentMediaFragment as ChatBodyEmoticonFragment).collapsedView()
+                    chat_media_container.visibility = View.INVISIBLE
+                }
             }
         }
     }

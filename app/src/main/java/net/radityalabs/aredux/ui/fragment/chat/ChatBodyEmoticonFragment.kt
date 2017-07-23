@@ -9,7 +9,7 @@ import net.radityalabs.aredux.di.Injector
 import net.radityalabs.aredux.ui.fragment.BaseFragment
 import android.support.design.widget.BottomSheetBehavior
 import android.widget.LinearLayout
-
+import kotlinx.android.synthetic.main.fragment_chat_body_emoticon.*
 
 /**
  * Created by radityagumay on 7/21/17.
@@ -22,7 +22,7 @@ class ChatBodyEmoticonFragment : BaseFragment() {
         fun newInstance() = ChatBodyEmoticonFragment()
     }
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
+    private var bottomSheetBehavior: BottomSheetBehavior<*>? = null
 
     private val store: ChatBodyStore by lazy {
         Injector.get(ChatBodyStore::class.java)
@@ -42,7 +42,13 @@ class ChatBodyEmoticonFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        main_content.visibility = View.VISIBLE
         bottomSheetBehavior = BottomSheetBehavior.from(view?.findViewById<LinearLayout>(R.id.bottom_sheet))
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    fun collapsedView() {
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+        main_content.visibility = View.GONE
     }
 }

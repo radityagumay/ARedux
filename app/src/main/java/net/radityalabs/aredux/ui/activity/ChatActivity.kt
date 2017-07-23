@@ -1,10 +1,13 @@
 package net.radityalabs.aredux.ui.activity
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import net.radityalabs.aredux.*
 import net.radityalabs.aredux.ui.fragment.chat.ChatFragment
 
 class ChatActivity : BaseActivity() {
+
+    private var fragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -13,11 +16,16 @@ class ChatActivity : BaseActivity() {
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        addFragment(R.id.container, ChatFragment.newInstance())
+        fragment = ChatFragment.newInstance()
+        addFragment(R.id.container, fragment as ChatFragment)
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
+        val cFragment = fragment as ChatFragment
+        if (cFragment.mediaShown()) {
+            cFragment.hideMedia()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

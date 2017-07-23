@@ -1,11 +1,13 @@
 package net.radityalabs.aredux.ui.fragment.chat
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.fragment_chat_body_footer.*
 import kotlinx.android.synthetic.main.view_chat_footer_edittext_icon.view.*
 import net.radityalabs.aredux.R
@@ -18,7 +20,7 @@ import net.radityalabs.aredux.ui.fragment.BaseFragment
  */
 
 class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
-        ChatBodyStateListener {
+        ChatBodyStateListener, View.OnFocusChangeListener {
 
     companion object {
         val TAG = ChatBodyFooterFragment::class.java.simpleName
@@ -55,6 +57,7 @@ class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
 
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         typeMessage = p0.toString()
+        actionCreator.submitAction(ChatBodyAction.HIDE_EMOTICON(ChatTask.HIDE_EMOTICON))
     }
 
     override fun onStateChanges(state: ChatBodyState) {
@@ -62,6 +65,12 @@ class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
             ChatTask.EMPTY_EDIT_TEXT -> {
                 typeMessage = empty()
                 message.etMessage.text.clear()
+            }
+
+            ChatTask.HIDE_KEYBOARD -> {
+                message.etMessage.clearFocus()
+                val inputmanager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputmanager.hideSoftInputFromWindow(message.etMessage.windowToken, 0)
             }
         }
     }
@@ -76,9 +85,14 @@ class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
         store.unregister(this)
     }
 
+    override fun onFocusChange(view: View?, p1: Boolean) {
+        actionCreator.submitAction(ChatBodyAction.HIDE_EMOTICON(ChatTask.HIDE_EMOTICON))
+    }
+
     private fun initView() {
         with(message) {
             etMessage.addTextChangedListener(this@ChatBodyFooterFragment)
+            etMessage.onFocusChangeListener = this@ChatBodyFooterFragment
             ivSend.setOnClickListener(setOnClickListener(R.id.ivSend))
             ivEmoticon.setOnClickListener(setOnClickListener(R.id.ivEmoticon))
         }
