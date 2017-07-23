@@ -86,10 +86,10 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
                 chatList.add(ChatObject(Random().nextInt(1000), ChatMessageType.ME_TEXT, state.messageObject?.text?.message))
                 chats.scrollToPosition(chatAdapter.itemCount - 1)
                 chatAdapter.notifyItemInserted(chatList.size - 1)
-                actionCreator.submitAction(ChatBodyAction.EMPTY_EDIT_TEXT(ChatTask.EMPTY_EDIT_TEXT))
+                actionCreator.submitAction(ChatBodyAction.VIEW(ChatTask.EMPTY_EDIT_TEXT))
             }
             ChatTask.SHOW_EMOTICON -> {
-                actionCreator.submitAction(ChatBodyAction.HIDE_KEYBOARD(ChatTask.HIDE_KEYBOARD))
+                actionCreator.submitAction(ChatBodyAction.VIEW(ChatTask.HIDE_KEYBOARD))
                 Observable.timer(100, TimeUnit.MILLISECONDS, Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe {
@@ -99,7 +99,7 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
                         }
 
             }
-            ChatTask.HIDE_EMOTICON -> {
+            ChatTask.HIDE_MEDIA_BOTTOM -> {
                 currentMediaFragment?.let {
                     (currentMediaFragment as ChatBodyEmoticonFragment).collapsedView()
                     chat_media_container.visibility = View.INVISIBLE

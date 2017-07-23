@@ -5,7 +5,9 @@ package net.radityalabs.aredux.ui.fragment.chat
  */
 
 enum class ChatTask {
+    HIDE_MEDIA_BOTTOM,
     HIDE_KEYBOARD,
+    SHOW_KEYBOARD,
     HIDE_EMOTICON,
     SHOW_EMOTICON,
     EMPTY_EDIT_TEXT,

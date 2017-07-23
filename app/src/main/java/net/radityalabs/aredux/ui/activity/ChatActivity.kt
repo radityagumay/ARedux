@@ -22,10 +22,16 @@ class ChatActivity : BaseActivity() {
 
     override fun onBackPressed() {
         val cFragment = fragment as ChatFragment
-        if (cFragment.mediaShown()) {
+        if (cFragment.isMediaShown()) {
             cFragment.hideMedia()
-        } else {
-            super.onBackPressed()
+            return
         }
+        if (cFragment.isKeyboardShown()) {
+            cFragment.hideKeyboard()
+            return
+        }
+
+        super.onBackPressed()
+        finish()
     }
 }

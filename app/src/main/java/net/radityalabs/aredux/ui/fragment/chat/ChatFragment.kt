@@ -21,6 +21,7 @@ class ChatFragment : BaseFragment(), ChatBodyStateListener {
     }
 
     private var isMediaShown = false
+    private var isKeyboardShown = false
 
     private val store: ChatBodyStore by lazy {
         Injector.get(ChatBodyStore::class.java)
@@ -66,12 +67,26 @@ class ChatFragment : BaseFragment(), ChatBodyStateListener {
             ChatTask.SHOW_EMOTICON -> {
                 isMediaShown = true
             }
+
+            ChatTask.HIDE_MEDIA_BOTTOM -> {
+                isMediaShown = false
+            }
+
+            ChatTask.SHOW_KEYBOARD -> {
+                isKeyboardShown = true
+            }
         }
     }
 
-    fun mediaShown() = isMediaShown
+    fun isKeyboardShown() = isKeyboardShown
+
+    fun isMediaShown() = isMediaShown
+
+    fun hideKeyboard() {
+        actionCreator.submitAction(ChatBodyAction.VIEW(ChatTask.HIDE_KEYBOARD))
+    }
 
     fun hideMedia() {
-        actionCreator.submitAction(ChatBodyAction.HIDE_EMOTICON(ChatTask.HIDE_EMOTICON))
+        actionCreator.submitAction(ChatBodyAction.VIEW(ChatTask.HIDE_MEDIA_BOTTOM))
     }
 }

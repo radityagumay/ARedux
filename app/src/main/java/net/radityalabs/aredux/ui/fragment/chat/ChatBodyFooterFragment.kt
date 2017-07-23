@@ -57,7 +57,6 @@ class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
 
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         typeMessage = p0.toString()
-        actionCreator.submitAction(ChatBodyAction.HIDE_EMOTICON(ChatTask.HIDE_EMOTICON))
     }
 
     override fun onStateChanges(state: ChatBodyState) {
@@ -86,7 +85,7 @@ class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
     }
 
     override fun onFocusChange(view: View?, p1: Boolean) {
-        actionCreator.submitAction(ChatBodyAction.HIDE_EMOTICON(ChatTask.HIDE_EMOTICON))
+        actionCreator.submitAction(ChatBodyAction.VIEW(ChatTask.HIDE_EMOTICON))
     }
 
     private fun initView() {
@@ -106,7 +105,7 @@ class ChatBodyFooterFragment : BaseFragment(), TextWatcher,
                 }
 
                 R.id.ivEmoticon -> {
-                    actionCreator.submitAction(ChatBodyAction.SHOW_EMOTICON(ChatTask.SHOW_EMOTICON))
+                    actionCreator.submitAction(ChatBodyAction.VIEW(ChatTask.SHOW_EMOTICON))
                 }
             }
         }
