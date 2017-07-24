@@ -1,6 +1,5 @@
 package net.radityalabs.aredux.ui.fragment.chat
 
-import net.radityalabs.aredux.data.network.RestService
 import net.radityalabs.aredux.di.Injector
 
 /**
@@ -8,7 +7,7 @@ import net.radityalabs.aredux.di.Injector
  */
 
 class ChatBodyActionCreator(
-        private val service: RestService = Injector.get(RestService::class.java),
+        private val useCase: ChatBodyActionUseCase = Injector.get(ChatBodyActionUseCase::class.java),
         private val store: ChatBodyStore = Injector.get(ChatBodyStore::class.java)) {
 
     fun submitAction(action: ChatBodyAction) {
@@ -16,6 +15,15 @@ class ChatBodyActionCreator(
             ChatBodyAction.INIT -> store.dispatch(action)
             is ChatBodyAction.VIEW -> store.dispatch(action)
             is ChatBodyAction.SEND_MESSAGE -> store.dispatch(action)
+            is ChatBodyAction.ON_LOAD_MESSAGE -> {
+                useCase.onLoadMessage(action.userId)
+                        .subscribe({
+                            success ->
+                            store.dispatch(ChatBodyAction.ON_LOAD_MESSAGE_SUCCESS(success))
+                        }, { error ->
+                            store.dispatch(ChatBodyAction.ON_LOAD_MESSAGE_FAILURE(error))
+                        })
+            }
         }
     }
 }
