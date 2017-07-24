@@ -37,8 +37,6 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
 
     private var currentMediaFragment: Fragment? = null
 
-    private var isKeyboardShown = false
-
     private val store: ChatBodyStore by lazy {
         Injector.get(ChatBodyStore::class.java)
     }
@@ -55,7 +53,6 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Injector.load(ChatBodyModule::class.java)
         actionCreator.submitAction(ChatBodyAction.INIT)
     }
 
@@ -83,7 +80,7 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
         when (state.chatTask) {
             ChatTask.APPEND_NEW_MESSAGE -> {
                 Log.d(TAG, state.messageObject?.text?.message)
-                chatList.add(ChatObject(Random().nextInt(1000), ChatMessageType.ME_TEXT, state.messageObject?.text?.message))
+                chatList.add(ChatObject(Random().nextInt(1000), state.messageObject?.messageType, state.messageObject?.text?.message))
                 chats.scrollToPosition(chatAdapter.itemCount - 1)
                 chatAdapter.notifyItemInserted(chatList.size - 1)
                 actionCreator.submitAction(ChatBodyAction.VIEW(ChatTask.EMPTY_EDIT_TEXT))
@@ -97,7 +94,6 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
                             currentMediaFragment = ChatBodyEmoticonFragment.newInstance()
                             addChildFragment(R.id.chat_media_container, currentMediaFragment as ChatBodyEmoticonFragment)
                         }
-
             }
             ChatTask.HIDE_MEDIA_BOTTOM -> {
                 currentMediaFragment?.let {

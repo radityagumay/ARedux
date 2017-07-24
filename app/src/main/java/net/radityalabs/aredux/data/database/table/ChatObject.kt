@@ -8,7 +8,7 @@ import net.radityalabs.aredux.extension.empty
 
 data class ChatObject(
         val chatId: Int,
-        val messageType: Long,
+        val messageType: Long?,
         val message: String? = empty(),
         val image: String? = empty(),
         val sticker: String? = empty(),
