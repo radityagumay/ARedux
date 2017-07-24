@@ -14,11 +14,11 @@ import net.radityalabs.aredux.listener.OnLoadPreviousListener
  */
 
 fun RecyclerView.loadPrevious(action: () -> Unit) {
-    addOnScrollListener(OnLoadPreviousListener(object : OnLoadPreviousListener.Callback {
-        override fun onLoadPrevious() {
+    addOnScrollListener(OnLoadPreviousListener {
+        onLoadPrevious {
             action.invoke()
         }
-    }))
+    })
 }
 
 fun RecyclerView.setup(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>): RecyclerView {

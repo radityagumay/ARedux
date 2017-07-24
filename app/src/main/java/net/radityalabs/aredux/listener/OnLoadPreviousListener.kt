@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 /**
  * Created by radityagumay on 7/22/17.
  */
-class OnLoadPreviousListener(private val callback: OnLoadPreviousListener.Callback) :
+class OnLoadPreviousListener(private val callback: KCallback.() -> Unit) :
         RecyclerView.OnScrollListener() {
 
     companion object {
@@ -34,7 +34,7 @@ class OnLoadPreviousListener(private val callback: OnLoadPreviousListener.Callba
 
             if (firstVisibleItem <= 1 && lastVisibleItem <= totalItemCount - 1) {
                 loading = true
-                callback.onLoadPrevious()
+                callback
             }
         }
     }
@@ -43,9 +43,22 @@ class OnLoadPreviousListener(private val callback: OnLoadPreviousListener.Callba
         super.onScrollStateChanged(recyclerView, newState)
         scrolling = RecyclerView.SCROLL_STATE_DRAGGING == newState;
     }
+}
 
-    interface Callback {
-        fun onLoadPrevious()
+interface Callback {
+    fun onLoadPrevious()
+}
+
+class KCallback : Callback {
+
+    private var onLoadPrevious: (() -> Unit)? = null
+
+    override fun onLoadPrevious() {
+        onLoadPrevious?.invoke()
+    }
+
+    fun onLoadPrevious(function: () -> Unit) {
+        this.onLoadPrevious = function
     }
 }
 

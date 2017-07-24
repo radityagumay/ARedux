@@ -1,20 +1,11 @@
 package net.radityalabs.aredux.extension
 
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.SingleTransformer
+import java.util.concurrent.TimeUnit
 
-
-fun <T> singleIo(): SingleTransformer<T, T> {
-    return SingleTransformer { upstream ->
-        upstream.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-    }
-}
-
-fun <T> singleNewThread(): SingleTransformer<T, T> {
-    return SingleTransformer { upstream ->
-        upstream.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+fun delay(time: Long, unit: TimeUnit, action: () -> Unit) {
+    Observable.timer(time, unit, Schedulers.io()).subscribe {
+        action.invoke()
     }
 }

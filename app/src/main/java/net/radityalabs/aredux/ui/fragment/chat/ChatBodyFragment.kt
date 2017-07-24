@@ -15,11 +15,8 @@ import net.radityalabs.aredux.extension.addedName
 import net.radityalabs.aredux.extension.loadPrevious
 import net.radityalabs.aredux.extension.setup
 import java.util.*
-import android.R.id.edit
-import android.content.Context.INPUT_METHOD_SERVICE
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+
+import net.radityalabs.aredux.extension.delay
 import java.util.concurrent.TimeUnit
 
 
@@ -79,7 +76,6 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
     override fun onStateChanges(state: ChatBodyState) {
         when (state.chatTask) {
             ChatTask.APPEND_NEW_MESSAGE -> {
-                Log.d(TAG, state.messageObject?.text?.message)
                 chatList.add(ChatObject(Random().nextInt(1000), state.messageObject?.messageType, state.messageObject?.text?.message))
                 chats.scrollToPosition(chatAdapter.itemCount - 1)
                 chatAdapter.notifyItemInserted(chatList.size - 1)
@@ -87,13 +83,11 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
             }
             ChatTask.SHOW_EMOTICON -> {
                 actionCreator.submitAction(ChatBodyAction.VIEW(ChatTask.HIDE_KEYBOARD))
-                Observable.timer(100, TimeUnit.MILLISECONDS, Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe {
-                            chat_media_container.visibility = View.VISIBLE
-                            currentMediaFragment = ChatBodyEmoticonFragment.newInstance()
-                            addChildFragment(R.id.chat_media_container, currentMediaFragment as ChatBodyEmoticonFragment)
-                        }
+                delay(100, TimeUnit.MILLISECONDS) {
+                    chat_media_container.visibility = View.VISIBLE
+                    currentMediaFragment = ChatBodyEmoticonFragment.newInstance()
+                    addChildFragment(R.id.chat_media_container, currentMediaFragment as ChatBodyEmoticonFragment)
+                }
             }
             ChatTask.HIDE_MEDIA_BOTTOM -> {
                 currentMediaFragment?.let {

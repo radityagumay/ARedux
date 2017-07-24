@@ -10,22 +10,8 @@ import net.radityalabs.aredux.redux.base.StateListener
  */
 
 abstract class BaseActivity : AppCompatActivity() {
-    protected var states: MutableList<StateListener> = mutableListOf()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
-
-    protected fun addState(state: StateListener) {
-        states.add(state)
-    }
-
-    protected fun removeState(state: StateListener) {
-        states.remove(state)
-    }
-
-    protected fun clearState() {
-        states.clear()
     }
 
     protected fun replaceFragment(containerId: Int, fragment: Fragment, isAddToBackStack: Boolean = false) {
