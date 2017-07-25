@@ -1,7 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../config/quality/quality.gradle'
+//apply from: '../config/quality/quality.gradle'
+apply from: '../config/quality/script-lint.gradle'
+apply from: '../config/quality/script-findbugs.gradle'
 
 android {
     compileSdkVersion 26
@@ -28,6 +30,10 @@ android {
         test {
             java.srcDirs = ['src/test/java']
         }
+    }
+
+    lintOptions {
+        abortOnError false
     }
 }
 
