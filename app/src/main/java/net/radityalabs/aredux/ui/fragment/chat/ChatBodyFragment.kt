@@ -105,7 +105,9 @@ class ChatBodyFragment : BaseFragment(), ChatBodyStateListener {
 
     private fun setupRecycleView() {
         chats.setup(chatAdapter)
-        chats.loadPrevious {}
+        chats.loadPrevious {
+            /* retrieval previous data */
+        }
     }
 
     private fun initChildFragment() {

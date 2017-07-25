@@ -6,7 +6,8 @@ import android.support.v7.widget.RecyclerView
 /**
  * Created by radityagumay on 7/22/17.
  */
-class OnLoadPreviousListener(private val callback: KCallback.() -> Unit) :
+
+class OnLoadPreviousListener(private val callback: (KCallback) -> Unit) :
         RecyclerView.OnScrollListener() {
 
     companion object {
@@ -31,10 +32,9 @@ class OnLoadPreviousListener(private val callback: KCallback.() -> Unit) :
         if (!loading && scrolling) {
             val lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
             val totalItemCount = linearLayoutManager.itemCount
-
             if (firstVisibleItem <= 1 && lastVisibleItem <= totalItemCount - 1) {
                 loading = true
-                callback
+                KCallback().apply(callback)
             }
         }
     }
