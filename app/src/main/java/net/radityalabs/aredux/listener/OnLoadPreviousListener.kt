@@ -7,7 +7,19 @@ import android.support.v7.widget.RecyclerView
  * Created by radityagumay on 7/22/17.
  */
 
-class OnLoadPreviousListener(private val callback: (KCallback) -> Unit) :
+/* for sample */
+class OnLoadListener(private val c1: (KCallback) -> Unit,
+                     private val c2: (KLoadMoreCallback) -> Unit) : RecyclerView.OnScrollListener() {
+    fun doSomething() {
+        if (true) {
+            KCallback().apply(c1)
+        } else {
+            KLoadMoreCallback().apply(c2)
+        }
+    }
+}
+
+class OnLoadPreviousListener(private val c1: (KCallback) -> Unit) :
         RecyclerView.OnScrollListener() {
 
     companion object {
@@ -34,7 +46,7 @@ class OnLoadPreviousListener(private val callback: (KCallback) -> Unit) :
             val totalItemCount = linearLayoutManager.itemCount
             if (firstVisibleItem <= 1 && lastVisibleItem <= totalItemCount - 1) {
                 loading = true
-                KCallback().apply(callback)
+                KCallback().apply(c1)
             }
         }
     }
@@ -47,6 +59,23 @@ class OnLoadPreviousListener(private val callback: (KCallback) -> Unit) :
 
 interface Callback {
     fun onLoadPrevious()
+}
+
+interface LoadMoreCallback {
+    fun onLoadMore()
+}
+
+class KLoadMoreCallback : LoadMoreCallback {
+
+    private var onLoadMore: (() -> Unit)? = null
+
+    override fun onLoadMore() {
+        onLoadMore?.invoke()
+    }
+
+    fun onLoadPrevious(function: () -> Unit) {
+        this.onLoadMore = function
+    }
 }
 
 class KCallback : Callback {
