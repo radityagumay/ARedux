@@ -33,8 +33,6 @@ fun RecyclerView.listener(act1: () -> Unit, act2: () -> Unit) {
         act1.invoke()
     }, {
         act2.invoke()
-    }, {
-
     }))
 }
 
