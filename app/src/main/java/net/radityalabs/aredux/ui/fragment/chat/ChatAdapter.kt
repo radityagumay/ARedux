@@ -31,6 +31,11 @@ class ChatAdapter(private var items: List<ChatObject>) : RecyclerView.Adapter<Re
                         .from(parent.context)
                         .inflate(R.layout.fragment_chat_item_me_text, parent, false))
             }
+            ChatMessageType.ME_VIDEO -> {
+                return ChatTextViewHolder(LayoutInflater
+                        .from(parent.context)
+                        .inflate(R.layout.fragment_chat_item_me_text, parent, false))
+            }
         }
         return ChatTextViewHolder(LayoutInflater
                 .from(parent.context)
