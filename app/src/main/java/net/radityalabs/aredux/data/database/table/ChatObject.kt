@@ -1,6 +1,6 @@
 package net.radityalabs.aredux.data.database.table
 
-import net.radityalabs.aredux.extension.empty
+import net.radityalabs.aredux.presentation.extension.empty
 
 /**
  * Created by radityagumay on 7/20/17.

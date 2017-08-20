@@ -5,15 +5,29 @@ import android.content.Context
 import net.radityalabs.aredux.di.Injector
 import net.radityalabs.aredux.di.Module
 import net.radityalabs.aredux.di.submodule.NetworkModule
-import net.radityalabs.aredux.redux.base.StateListener
+import net.radityalabs.aredux.presentation.di.component.AppComponent
+import net.radityalabs.aredux.presentation.di.module.AppModule
+import net.radityalabs.aredux.presentation.di.module.NetworkModule
 
 class App : Application() {
-
-    lateinit var instance: Context
+    companion object {
+        lateinit var instance: Context
+            private set
+        lateinit var appComponent: AppComponent
+            private set
+    }
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        Injector.load(NetworkModule::class.java)
+
+        setupAppComponent()
+    }
+
+    private fun setupAppComponent() {
+        appComponent = DaggerAppComponent.builder()
+                .appModule(AppModule(instance))
+                .httpModule(NetworkModule())
+                .build()
     }
 }

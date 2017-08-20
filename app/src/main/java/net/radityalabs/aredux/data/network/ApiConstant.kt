@@ -1,8 +1,9 @@
 package net.radityalabs.aredux.data.network
 
-/**
- * Created by radityagumay on 7/21/17.
- */
 object ApiConstant {
+    const val BASE_URL = "http"
 
+    const val CONNECTION_TIMEOUT = 20L
+    const val READ_TIMEOUT = 30L
+    const val WRITE_TIMEOUT = 30L
 }

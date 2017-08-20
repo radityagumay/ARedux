@@ -1,7 +1,7 @@
 package net.radityalabs.aredux
 
 import junit.framework.Assert
-import net.radityalabs.aredux.ui.fragment.chat.*
+import net.radityalabs.aredux.presentation.ui.fragment.chat.*
 import org.junit.Test
 
 /**
