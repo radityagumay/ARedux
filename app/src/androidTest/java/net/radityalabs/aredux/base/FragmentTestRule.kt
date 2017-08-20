@@ -5,10 +5,6 @@ import android.support.v4.app.Fragment
 import junit.framework.Assert
 import net.radityalabs.aredux.R
 
-
-/**
- * Created by radityagumay on 7/23/17.
- */
 class FragmentTestRule<F : Fragment>(private val mFragmentClass: Class<F>) :
         ActivityTestRule<TestActivity>(TestActivity::class.java, true, false) {
     var fragment: F? = null
