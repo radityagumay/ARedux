@@ -11,6 +11,7 @@ class LoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addFragment(R.id.container, LoginFragment.newInstance())
+        setContentView(R.layout.activity_login)
+        addFragment(R.id.login_container, LoginFragment.newInstance())
     }
 }

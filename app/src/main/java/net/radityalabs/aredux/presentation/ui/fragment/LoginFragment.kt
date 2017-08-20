@@ -2,8 +2,8 @@ package net.radityalabs.aredux.presentation.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import net.radityalabs.aredux.R
 
 class LoginFragment : BaseFragment() {
     companion object {
@@ -15,7 +15,6 @@ class LoginFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?) =
+            inflater?.inflate(R.layout.fragment_login, container, false)
 }
