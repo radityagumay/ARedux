@@ -1,15 +1,14 @@
 package net.radityalabs.aredux
 
 import android.app.Application
-import android.content.Context
-import net.radityalabs.aredux.presentation.di.component.AppComponent
-import net.radityalabs.aredux.presentation.di.component.DaggerAppComponent
-import net.radityalabs.aredux.presentation.di.module.AppModule
-import net.radityalabs.aredux.presentation.di.module.NetworkModule
+import net.radityalabs.aredux.presentation.di.component.base.AppComponent
+import net.radityalabs.aredux.presentation.di.component.base.DaggerAppComponent
+import net.radityalabs.aredux.presentation.di.module.base.AppModule
+import net.radityalabs.aredux.presentation.di.module.base.NetworkModule
 
 class App : Application() {
     companion object {
-        lateinit var instance: Context
+        lateinit var instance: App
             private set
         lateinit var appComponent: AppComponent
             private set

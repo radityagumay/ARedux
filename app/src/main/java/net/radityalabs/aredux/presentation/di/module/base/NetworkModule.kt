@@ -1,4 +1,4 @@
-package net.radityalabs.aredux.presentation.di.module
+package net.radityalabs.aredux.presentation.di.module.base
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module

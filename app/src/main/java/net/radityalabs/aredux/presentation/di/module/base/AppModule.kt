@@ -1,18 +1,18 @@
-package net.radityalabs.aredux.presentation.di.module;
+package net.radityalabs.aredux.presentation.di.module.base;
 
-import android.content.Context
 import dagger.Module
 import dagger.Provides
+import net.radityalabs.aredux.App
 import net.radityalabs.aredux.data.database.RealmHelper
 import net.radityalabs.aredux.data.network.RestHelper
 import net.radityalabs.aredux.data.network.RestService
 import javax.inject.Singleton
 
 @Module
-class AppModule(val context: Context) {
-    @Provides
+class AppModule(val app: App? = null) {
     @Singleton
-    fun provideContext() = context
+    @Provides
+    fun provideAppContext() = app
 
     @Provides
     @Singleton

@@ -1,9 +1,7 @@
 package net.radityalabs.aredux.presentation.ui.fragment
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import net.radityalabs.aredux.R
+import net.radityalabs.aredux.presentation.di.module.LoginModule
 
 class LoginFragment : BaseFragment() {
     companion object {
@@ -11,10 +9,18 @@ class LoginFragment : BaseFragment() {
         fun newInstance() = LoginFragment()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun setupInjection() {
+        fragmentComponent.plus(LoginModule()).inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?) =
-            inflater?.inflate(R.layout.fragment_login, container, false)
+    override fun setupEvent() {
+    }
+
+    override fun getLayoutId() = R.layout.fragment_login
+
+    override fun setupView() {
+    }
+
+    override fun setupData() {
+    }
 }
