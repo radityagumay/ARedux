@@ -4,7 +4,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.SingleTransformer
 
-
 fun <T> singleIo(): SingleTransformer<T, T> {
     return SingleTransformer { upstream ->
         upstream.subscribeOn(Schedulers.io())
