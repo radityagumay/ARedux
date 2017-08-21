@@ -2,6 +2,7 @@ package net.radityalabs.aredux.data.network
 
 object ApiConstant {
     const val BASE_URL = "http"
+    const val LOGIN = BASE_URL + ""
 
     const val CONNECTION_TIMEOUT = 20L
     const val READ_TIMEOUT = 30L
