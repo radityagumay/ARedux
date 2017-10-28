@@ -16,8 +16,7 @@ object Injector {
     private val instances: MutableMap<Class<*>, Any> = HashMap()
 
     fun <T> get(clazz: Class<T>): T {
-        val o = instances[clazz] ?: throw IllegalStateException("Instance not found for class : '" + clazz.simpleName + "'"
-        )
+        val o = instances[clazz] ?: throw IllegalStateException("Instance not found for class : '" + clazz.simpleName + "'")
         return o as T
     }
 

@@ -7,7 +7,7 @@ apply from: '../config/quality/script-findbugs.gradle'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "net.radityalabs.aredux"
         minSdkVersion 14
@@ -43,7 +43,7 @@ ext {
     RETROFIT_VERSION = "2.1.0"
     OKIO_VERSION = "1.11.0"
     GLIDE_VERSION = "3.7.0"
-    ANDROID_DESIGN_VERSION = "26.0.1"
+    ANDROID_DESIGN_VERSION = "26.1.0"
     MOCKITO_VERSION = '2.7.1'
     DAGGER_VERSION = "2.8"
     ESPRESSO_VERSION = '2.2.2'
