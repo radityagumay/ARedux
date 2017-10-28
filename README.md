@@ -1,9 +1,5 @@
-This repository contains implementation of Redux Architecture in Android. 
-
-We have been using Redux Architecture in Our Product (in small app). 
-
+This repository contains implementation of Redux Architecture in Android. We have been using Redux Architecture in Our Product (in small app). 
 But, this Architecture is not fit for complicated project, we will have many boilerplate in our code regarding observer subscribe.
-
 You can use this Architecture for Single View which have multiple view component and functional component inside it. But, whole project still you MV*.
 
 
